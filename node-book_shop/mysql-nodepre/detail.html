@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>书籍详情</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./styles/detail.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h4>书籍详情界面</h4>
+        <div id="logReg">
+            <a href="./logreg.html" class="link-login">你好，请登录</a>&nbsp;&nbsp;
+            <a href="#">退出</a>&nbsp;&nbsp;
+            <a href="./logreg.html" class="link-regist style-red">免费注册</a>
+        </div>
+        <div class="i_top" style="clear:both"></div>
+
+        <div id="content1">
+
+        </div>
+
+    </div>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/art-template/lib/template-web.js"></script>
+    <script src="./js/public.js"></script>
+
+    <script id="tpl-bookInfo" type="text/html">
+        <ul>
+            <li>
+                <div class='bookPic'>
+                    <img src={{data.img}} alt="">
+                </div>
+                <div class='small_pic'>
+                    <span><</span>
+                    <a href="#" class="active"><img src={{data.img}} alt=""></a>
+                    <a href="#"><img src={{data.img}} alt=""></a></a>
+                    <a href="#"><img src={{data.img}} alt=""></a></a>
+                    <a href="#"><img src={{data.img}} alt=""></a></a>
+                    <span>></span>
+                </div>
+                <div class='bookInfo'>
+                    <h5>《{{data.title}}》</h5>
+                    <p class='price'>
+                        AI书价：<span>{{data.price}}￥</span>
+                    </p>
+                    <p class='catelog'>
+                        分类：<span>{{data.catalog}}</span>
+                    </p>
+                    <p class='tags'>
+                        标签：<span>{{data.tags}}</span>
+                    </p>
+                    
+                    <p class='reading'>
+                        已阅读：<span>{{data.reading}}</span>
+                    </p>
+                    <p class='bytime'>
+                        上架时间：<span>{{data.bytime}}</span>
+                    </p>
+                    <div class='btns'>
+                        <input type="text" placeholder = '1'>
+                        <a href="javascript:void(0)">+</a>
+                        <a href="javascript:void(0)">-</a>
+                        <a href={{data.shopStore['京东商城']}}>加入购物车</a>
+                    </div>
+                    <p class='tip'>温馨提示：支持7天无理由退货</p>
+                </div>
+            </li>
+        </ul>
+        <div style='clear:both; background:#fff; padding-top:80px;'>
+            <h4>商品详情</h4>
+            <br>
+            <br>
+            <p class='detail' style='text-indent:25px;'>
+                <span>{{data.sub2}}</span>
+            </p>
+        </div>
+    </script>
+    <script>
+        // 解析用户点击了哪个书籍
+        let search = location.search;
+        search = query(search);
+
+        let url = 'http://127.0.0.1:3000';
+        window.onload = function () {
+
+            let myUrl = url + `/book/detail?cid=${search.cid}&bName=${search.bName}`;
+            fetch(myUrl).then(data => data.json()).then(res => {
+                // 解析商城连接
+                let goShoping = {};
+                let arr = res[0].online.split(' ');
+                for (let i in arr) {
+                    let shopSrc = arr[i].substring(arr[i].indexOf(':') + 1);
+                    let shopName = arr[i].substring(0, arr[i].indexOf(':'));
+                    goShoping[shopName] = shopSrc;
+                }
+                res[0].shopStore = goShoping;
+                // console.log(goShoping)
+                // console.log(res[0])
+                if (res) {
+                    let html = template('tpl-bookInfo', { data: res[0] });
+                    document.getElementById('content1').innerHTML = html;
+                }
+            });
+
+            // 设置登录状态样式
+            setStatus();
+        }
+
+        // 点击退出链接，清除cookie；
+        $("#logReg a:eq(1)").click(function () {
+            document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            window.location = './index.html'
+            $(this).hide();
+        });
+
+    </script>
+</body>
+
+</html>

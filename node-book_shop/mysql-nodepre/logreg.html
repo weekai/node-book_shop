@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="#" />
+    <link type="text/css" rel="styleSheet" href="css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>账号注册登录</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        #sexSt {
+            text-align: left;
+            color: rgba(87, 87, 87, 0.8);
+        }
+
+        #sexSt .confirm-sex {
+            margin-left: 36px;
+            width: 20px !important;
+        }
+
+        .sex01 {
+            position: relative;
+            top: 10px;
+        }
+
+        #sexSt input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        #sexSt input[type="radio"]+label:hover {
+            cursor: pointer;
+        }
+
+        #sexSt input[type='radio']+label {
+            position: relative;
+            left: -38px;
+            top: 6px;
+            margin-right: -5px;
+        }
+
+        #sexSt input[type='radio']+label::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            padding: 2px;
+            border-radius: 50%;
+            border: 1px solid rgba(87, 87, 87, 0.8);
+            box-sizing: border-box;
+            margin-right: 10px;
+        }
+
+        #sexSt input[type="radio"]:checked+label::before {
+            background-clip: content-box;
+            background-color: rgba(87, 87, 87, 0.8);
+            width: 20px;
+            height: 20px;
+            padding: 2px;
+        }
+
+        #sexSt input[type="radio"] {
+            position: relative;
+            visibility: visible;
+            opacity: 0;
+            z-index: 666;
+        }
+
+        #sexSt label {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg">
+        <div id="hint">
+            <!-- 提示框 -->
+            <p>登录失败</p>
+        </div>
+        <div id="login_wrap">
+            <div id="login">
+                <!-- 登录注册切换动画 -->
+                <div id="status">
+                    <i style="top: -2px; right: -10px; letter-spacing: 8px;">登录</i>
+                    <i style="top: 36px; right: -9px; letter-spacing: 8px;">注册</i>
+                </div>
+                <span>
+                    <form action="post">
+                        <p class="form">
+                            <input type="text"  id="user" placeholder="用户名..." onkeyup="value=value.replace(/[\W]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                        </p>
+                        <p class="form">
+                            <input type="password" id="passwd" placeholder="密码..." autocomplete="">
+                        </p>
+                        <p class="form confirm">
+                            <input type="password" id="confirm-passwd" placeholder="确认密码..." autocomplete="">
+                        </p>
+                        <p class="form confirm">
+                            <input type="tel" id="confirm-tel" placeholder="手机号码...">
+                        </p>
+                        <p class="form confirm">
+                            <input type="email" id="confirm-mail" placeholder="邮箱...">
+                        </p>
+                        <p class="form confirm" id="sexSt" style=" font-size:18px;">
+                            <label for="sex" style="position:relative;top:6px;">性别</label>
+                            <input type="radio" id="man" class="confirm-sex" name="sex" value="1" checked><label
+                                for="man">男</label>
+                            <input type="radio" id="woman" class="confirm-sex" name="sex" value="0"><label
+                                for="woman">女</label>
+                        </p>
+                        <input type="button" value="登录" id="logBtn" class="btn" onclick="login()"
+                            style="margin-right: 20px;">
+                        <input type="button" value="注册" id="regBtn" class="btn" onclick='signin()'>
+                    </form>
+                    <a href="./password.html">Forget your password?</a>
+                </span>
+            </div>
+
+            <div id="login_img">
+                <span class="circle">
+                    <span></span>
+                    <span></span>
+                </span>
+                <span class="star">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span class="fly_star">
+                    <span></span>
+                    <span></span>
+                </span>
+                <p id="title">BOOK STORE</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let onoff = true//根据此布尔值判断当前为注册状态还是登录状态
+    let confirm0 = document.getElementsByClassName("confirm")[0]
+    let confirm1 = document.getElementsByClassName("confirm")[1]
+    let confirm2 = document.getElementsByClassName("confirm")[2]
+    let confirm3 = document.getElementsByClassName("confirm")[3]
+
+    let sex0 = document.getElementsByClassName('confirm-sex')[0]
+    let sex1 = document.getElementsByClassName('confirm-sex')[1]
+
+    let hit = document.getElementById("hint")
+    let hitp = hit.getElementsByTagName('p')[0];
+
+
+    let uname = document.getElementById("user")
+    let upwd = document.getElementById("passwd")
+    let rupwd = document.getElementById("confirm-passwd")
+    let utel = document.getElementById("confirm-tel")
+    let uemail = document.getElementById("confirm-mail")
+    let ugender = document.getElementsByName('sex');
+
+    const URL = 'http://127.0.0.1:3000/user/';
+
+    //修改密码
+    let flag = true;
+    function updatePwd() {
+        if (flag) {
+            window.open()
+            let myUrl = URL + 'password';
+            fetch(URL).then(data => json()).then(res => {
+                console.log(res);
+            });
+        }
+    }
+
+
+
+    //注册时执行的事件函数
+    function signin() {
+        // 获取性别
+        let gender;
+        for (let i = 0; i < ugender.length; i++) {
+            if (ugender[i].checked) {
+                gender = ugender[i].value;
+            }
+        }
+
+        let uemailPatt = /^\w+@[a-z0-9]+\.[a-z]{2,4}$/;
+        let utelPatt = /^[1][0-9]{10}$/;
+        let pwdPatt = /^(\w){6,}$/;
+        let unamePatt = /^[a-zA-Z]{1}[a-zA-Z0-9_-]{3,9}$/;
+
+
+        // 根据表单状态获取值
+        if (onoff) {
+            clearVal();
+            changeReg();
+        } else {
+            console.log(uname.value.trim(), upwd.value.trim(), utel.value.trim(), uemail.value.trim());
+
+            if (uname.value.trim() == '' || upwd.value.trim() == '' || utel.value.trim() == '' || uemail.value.trim() == '') {
+                hint();
+                hitp.innerHTML = '注册信息未填写完整！';
+                return;
+            } else if (!unamePatt.test(uname.value.trim())) {
+                hint();
+                hitp.innerHTML = '用户名必须由字母开头、字母数字下划线组成，长度不能小于4位！';
+                return;
+            } else if (!pwdPatt.test(upwd.value.trim())) {
+                hint();
+                hitp.innerHTML = '密码由字母、数字组成，长度不能小于6位！';
+                return;
+            } else if (upwd.value.trim() != rupwd.value.trim()) {
+                hint();
+                hitp.innerHTML = '两次输入的密码不一致！';
+                return;
+            } else if (!utelPatt.test(utel.value.trim())) {
+                hint();
+                hitp.innerHTML = '手机号格式不正确！';
+                return;
+            } else if (!uemailPatt.test(uemail.value.trim())) {
+                hint();
+                hitp.innerHTML = '邮箱格式不正确！';
+                return;
+            }
+
+            // 注册时间
+            let now = new Date();
+            let timer = now.valueOf(); //时间戳
+
+            let myUrl = URL + 'register';
+            let user = {
+                uname: uname.value.trim(),
+                upwd: upwd.value.trim(),
+                utel: utel.value.trim(),
+                uemail: uemail.value.trim(),
+                ugender: gender.trim(),
+                signtime: timer
+            }
+            console.log(user);
+            fetch(myUrl, {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded"
+                }
+            }).then(data => data.json()).then(res => {
+                console.log(res);
+
+                if (res.code == '202') {
+                    hint();
+                    hitp.innerHTML = '注册成功！';
+                    setTimeout(doLoad, 3000, './logreg.html');
+                    clearVal();
+                }
+
+                if (res.code == '203') {
+                    hint();
+                    hitp.innerHTML = '注册失败，用户名重复！';
+                    clearVal();
+                }
+
+
+                if (res.code == '502') {
+                    hint();
+                    hitp.innerHTML = '系统错误：用户名查询失败！';
+                    clearVal();
+                }
+
+                if (res.code == '503') {
+                    hint();
+                    hitp.innerHTML = '系统错误：添加注册信息失败！';
+                    clearVal();
+                }
+            });
+
+        }
+    }
+
+
+    //登录时执行的事件函数
+    function login() {
+        let myUrl = URL + 'login';
+        let user = {
+            uname: uname.value.trim(),
+            upwd: upwd.value.trim()
+        }
+        // 根据表单状态获取值
+        if (!onoff) {
+            clearVal();
+            changeLog();
+        } else {
+            fetch(myUrl, {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded"
+                }
+            }).then(data => data.json()).then(res => {
+                console.log(res);
+                if (res.code == '202') {
+
+                    //设置用户cookie
+                    setUserCookie(res.data);
+
+                    hint();
+                    hitp.innerHTML = '登录成功！';
+                    setTimeout(doLoad, 3000, './index.html');
+                    clearVal();
+                }
+                if (res.code == '203') {
+                    hint();
+                    hitp.innerHTML = '用户名或密码错误！';
+                    clearVal();
+                }
+                if (res.code == '204') {
+                    hint();
+                    hitp.innerHTML = '此用户不存在，请先注册！';
+                    clearVal();
+                }
+            });
+        }
+    }
+
+
+    // 将用户信息写入cookie
+    function setUserCookie(user) {
+        // console.log(user);
+        document.cookie = `username=${user.username}`;
+    }
+
+
+    //切换为注册时的css样式
+    function changeLog() {
+        let status = document.getElementById("status").getElementsByTagName("i")
+        confirm0.style.height = 0
+        confirm1.style.height = 0
+        confirm2.style.height = 0
+        confirm3.style.height = 0
+
+        status[0].style.top = 0
+        status[1].style.top = 35 + "px"
+        onoff = !onoff
+    }
+
+
+    //切换为登录时的css样式
+    function changeReg() {
+        let status = document.getElementById("status").getElementsByTagName("i")
+        let hit = document.getElementById("hint").getElementsByTagName("p")[0]
+        confirm0.style.height = 51 + "px"
+        confirm1.style.height = 51 + "px"
+        confirm2.style.height = 51 + "px"
+        confirm3.style.height = 51 + 'px'
+        sex0.className = 'confirm-sex sex01'
+        sex1.className = 'confirm-sex sex01'
+        status[0].style.top = 35 + "px"
+        status[1].style.top = 0
+        onoff = !onoff
+    }
+
+
+    //错误提示
+    function hint() {
+
+        hit.style.display = "block"
+        setTimeout("hit.style.opacity = 1", 0)
+        setTimeout("hit.style.opacity = 0", 2000)
+        setTimeout('hit.style.display = "none"', 3000)
+    }
+
+
+    //3 秒跳转
+    function doLoad(url) {
+        window.location.href = url;
+    }
+
+
+    //清空值
+    function clearVal() {
+        uname.value = '';
+        upwd.value = '';
+        rupwd.value = '';
+        utel.value = '';
+        ugender.value = '';
+        uname.focus();
+    }
+</script>
+
+</html>

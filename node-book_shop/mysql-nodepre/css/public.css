@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.select {
+    -webkit-user-select: none;
+
+    -moz-user-select: none;
+
+    -ms-user-select: none;
+
+    user-select: none;
+}
+
+.container {
+    margin-top: 25px;
+
+}
+
+#menu>ul li {
+    float: left;
+    cursor: pointer;
+}
+
+#menu>ul li:hover {
+    background: #D3C9A6;
+    color: #fff;
+}
+
+h4 {
+    /* background: rebeccapurple; */
+    font-weight: bold;
+    width: auto;
+    float: left;
+    /* padding-left: 50px;
+    box-sizing: border-box; */
+}
+
+#logReg {
+    float: right;
+    /* background: red; */
+    height: 35px;
+    font-size: 12px;
+    /* border-bottom: 1px solid #eee; */
+    /* padding-right: 75px;
+    box-sizing: border-box; */
+}
+
+#logReg a {
+    color: #333;
+}
+
+#logReg a:last-child {
+    color: #D3C9A6;
+}
+
+#content {
+    margin-top: 30px;
+}
+
+#content ul {
+    list-style: none;
+}
+
+#content ul li {
+    white-space: nowrap;
+    height: 14rem;
+    margin-bottom: 20px;
+    /* background: orangered; */
+    border-bottom: 1px dashed #eee;
+}
+
+#content ul li:hover {
+    background: #D3C9A6;
+    cursor: pointer;
+}
+
+#content .bookPic {
+    float: left;
+    overflow: hidden;
+    background: #F6F6F6;
+    width: 10.2rem;
+    height: 14rem;
+    padding: 1rem;
+}
+
+#content .bookPic img {
+    height: 12rem;
+}
+
+
+#content .bookInfo {
+    width: 50%;
+    overflow: hidden;
+    line-height: 1.2rem;
+    /* background: #F6F6F6; */
+    float: left;
+    padding-top: 1rem;
+    margin-left: 15px;
+    box-sizing: border-box;
+}
+
+#content .bookInfo .detail {
+    width: 100%;
+    line-height: 1.4rem;
+    text-overflow: ellipsis;
+    /* display: -webkit-box; */
+    /* -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; */
+    overflow: hidden;
+}
+
+.active {
+    background-color: #D3C9A6;
+    color: #fff;
+}
+
+.i_top {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}

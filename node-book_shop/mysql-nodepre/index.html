@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AI书首页</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/public.css">
+    <style>
+       
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h4>Ai书商城</h4>
+        <div id="logReg">
+            <a href="./logreg.html" class="link-login">你好，请登录</a>&nbsp;&nbsp;
+            <a href="#">退出</a>&nbsp;&nbsp;
+            <a href="./logreg.html" class="link-regist style-red">免费注册</a>
+        </div>
+
+        <div class="i_top" style="clear:both"></div>
+
+        <nav class="nav" id="menu"></nav>
+        <div id="content">
+
+        </div>
+
+    </div>
+
+
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/art-template/lib/template-web.js"></script>
+    <script src="./js/public.js"></script>
+
+    <script id="tpl-cate" type="text/html">
+        <ul>
+            {{each data }}
+            <li class='nav-item nav-link select' cateId = {{$value.id}}>{{$value.catalog}}</li>
+            {{/each}}
+        </ul>
+    </script>
+
+    <script id="tpl-firstBook" type="text/html">
+        <ul>
+            {{each data }}
+            <li>
+                <div class='bookPic'>
+                    <img src={{$value.img}} alt="">
+                </div>
+                <div class='bookInfo'>
+                    <h5>《{{$value.title}}》</h5>
+                    <p>
+                        分类：<span>{{$value.catalog}}</span>
+                    </p>
+                    <p>
+                        标签：<span>{{$value.tags}}</span>
+                    </p>
+                    <p class='detail'>
+                        详情：<span>{{$value.sub2}}</span>
+                    </p>
+                    <p>
+                        已阅读：<span>{{$value.reading}}</span>
+                    </p>
+                    <p>
+                        上架时间：<span>{{$value.bytime}}</span>
+                    </p>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </script>
+
+    <script>
+        let url = 'http://127.0.0.1:3000'
+        window.onload = function () {
+
+            let myUrl = url + '/book/category'
+            // get请求获取所有分类的信息
+            fetch(myUrl).then(data => data.json()).then(res => {
+                // console.log(res);
+                let html = template('tpl-cate', { data: res });
+                document.getElementById('menu').innerHTML = html;
+
+                // 为第一个li添加样式
+                $('#menu ul li:first').addClass('active');
+                getCatebook();
+            });
+
+            // post请求获取第一个分类的书籍信息
+            fetch(myUrl, {
+                method: 'POST',
+            }).then(data => data.json()).then(res => {
+                // console.log(res);
+                let html = template('tpl-firstBook', { data: res });
+                document.getElementById('content').innerHTML = html;
+                getBookInfo();
+            });
+
+            // 默认退出按钮隐藏
+            $("#logReg a:eq(1)").hide();
+            // 设置登录状态样式
+            setStatus();
+        }
+
+        // 点击退出链接，清除cookie；
+        $("#logReg a:eq(1)").click(function () {
+            document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            window.location = './index.html'
+            $(this).hide();
+        });
+
+
+        function getCatebook() {
+            let clicked = '';
+            $('#menu .nav-item').each(function () {
+                $(this).click(function () {
+                    //必须先获取active 的html，再切换样式
+                    clicked = $('#menu ul li.active').html();
+
+                    // 鼠标点击移动样式
+                    $(this).addClass('active').siblings().removeClass('active');
+
+                    // 判断用户是否重复点击,重复点击不发送请求
+                    if (clicked != $(this).html()) {
+                        // console.log('发送请求！');
+                        let myUrl = url + `/book/getbook?cid=${$(this).attr('cateId')}`
+                        // console.log(myUrl);
+                        fetch(myUrl).then(data => data.json()).then(res => {
+                            // console.log(res)
+                            if (res) {
+                                // console.log(res.data.data);
+                                let html1 = template('tpl-firstBook', { data: res });
+                                document.getElementById('content').innerHTML = '';
+                                // console.log(html)
+                                document.getElementById('content').innerHTML = html1;
+                                getBookInfo();
+                            }
+                        });
+                    }
+                })
+            })
+        }
+
+        // 向detail页面传递数据
+        function getBookInfo() {
+            $("#content ul li").each(function () {
+
+                $(this).click(function () {
+                    let uname = getCookie('username');
+                    if (uname == null) {
+                        alert('您还没有登录，请登录后查看！');
+                        setTimeout(doLoad, 2000);
+                        return;
+                    }
+                    // 获取当前分类id
+                    let cid = $('#menu ul li.active').attr('cateId');
+                    // 获取当前书籍
+                    let str = $(this).find('h5').html();
+                    let bName = str.substring(1, str.length - 1);
+                    bName = escape(bName);
+                    window.location = `./detail.html?cid=${cid}&bName=${bName}`;
+                });
+            })
+        }
+
+        //3 秒跳转
+        function doLoad() {
+            window.location = './logreg.html';
+        }
+
+
+    </script>
+
+</body>
+
+</html>

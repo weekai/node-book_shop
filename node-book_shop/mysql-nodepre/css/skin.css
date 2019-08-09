@@ -1,0 +1,102 @@
+@charset "utf-8";
+/*背景颜色或背景平铺图*/
+body,.S_page{background-color:#fff;}
+
+/*===发布器slogan字色===*/
+.send_weibo .ficon_swtxt{ color:#808080;}
+
+/*====主文字====含同色系的线、面*/
+body,
+legend,
+.W_input:focus,
+.S_txt1,
+.W_btn_b,
+.SW_fun .S_func1{ color:#333;text-decoration:none;}
+.S_txt1_bg{ background-color:#333;}
+.S_txt1_br{ border-color:#333;}
+/*====二级文字====含同色系的线、面*/
+.S_txt2,
+.W_input,
+.W_btn_b_disable,
+.W_btn_b_disable:hover{ color:#808080;text-decoration:none;}
+.S_txt2_bg{ background-color:#808080;}
+.S_txt2_br{ border-color:#808080;}
+/*====icon色====含同色系的线、面*/
+.S_ficon,
+.S_ficon_dis,
+a.S_ficon_dis:hover,
+a:hover .S_ficon_dis{ color:#696e78;}
+.S_ficon_bg{ background-color:#696e78;}
+.S_ficon_br{ border-color:#696e78;}
+/*====一级链接====含同色系的线、面*/
+a,
+.S_link1,
+a.S_txt1:hover,
+a.current .S_txt1,
+a.S_txt2:hover,
+.SW_fun:hover .S_func1{ color:#eb7350;}
+.S_link1_bg{ background-color:#eb7350;}
+.S_link1_br{ border-color:#eb7350;}
+
+/*===背景色块1===*/
+.S_bg1,
+.SW_fun_bg:hover,
+.SW_fun_bg_active{background-color:#f2f2f5;}
+.S_bg1_c{color:#f2f2f5;}
+.S_bg1_br{border-color:#f2f2f5;}
+.W_btn_cardlink,
+.W_btn_tag_cur,
+.W_btn_tag_cur:hover{background-color:#f2f2f5!important;}
+/*===背景色块2===*/
+.S_bg2,
+blockquote,
+.W_btn_b,
+.W_input,
+.SW_fun_bg{background-color:#fff;}
+.S_bg2_c{color:#fff;}
+.S_bg2_br{color:#fff;border-color:#fff;}
+
+/*===一级线色===*/
+.S_line1,
+.W_btn_prev,
+.W_btn_next,
+.W_btn_b{border-color:#d9d9d9;}
+.W_btn_b_disable,
+.W_btn_b_disable:hover,
+.W_btn_tag_cur,
+.W_btn_tag_cur:hover{border-color:#d9d9d9!important;}
+.S_line1_c{color:#d9d9d9;}
+.W_btn_b_disable .S_ficon{color:#d9d9d9!important;}
+/*===二级线色===*/
+.S_line2{border-color:#f2f2f5;}
+.S_line2_c{color:#f2f2f5;}
+/*===三级线色（输入框）===*/
+.S_line3,
+.W_input,
+.send_weibo .input,
+.W_btn_b:hover{border-color:#cccccc;}
+/*===发布器背景色===*/
+.W_input,.send_weibo .input{background-color:#fff;}
+
+/*===左导（字色换算成十进制后，以下4个相同）===*/
+.WB_left_nav .S_txt1,
+.WB_left_nav a.S_txt1:hover,
+.WB_left_nav .S_ficon,
+.WB_left_nav a:hover .S_ficon,
+.WB_left_nav a.S_ficon:hover{color:#fff;}
+.WB_left_nav .lev a:hover,
+.WB_left_nav .lev_curr,
+.WB_left_nav .lev_curr:hover,
+.WB_left_nav .levmore .more{ background-color:#b2b9c3;background-color:rgba(255,255,255,0.2);*background-color:#b2b9c3;}
+.WB_left_nav .lev_Box,
+.WB_left_nav fieldset{ border-color:#b2b9c3;border-color:rgba(255,255,255,0.1);*border-color:#b2b9c3;}
+/*==首页遮罩==*/.WB_frame{ background-color:#a8afb9;background-color:rgba(36,61,89,0.25);*background-color:#a8afb9;}
+/*===时间轴（以下3个相同）===*/
+.WB_timeline .S{ color:#696e78;border-left-color:#696e78;}
+.WB_timeline .current em,
+.WB_timeline .S_dot,
+.W_gotop{ background-color:#696e78;}
+
+/*顶部 大背景图*/
+#js_skin_default_skin{height:42px;}
+

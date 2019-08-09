@@ -1,0 +1,140 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+#content1 {
+  margin-top: 10px;
+}
+#content1 ul {
+  list-style: none;
+  position: relative;
+}
+#content1 .bookPic {
+  width: 250px;
+  height: 280px;
+  background: #fff;
+  border: 1px solid #666;
+  text-align: center;
+  padding: 15px 0;
+  float: left;
+}
+#content1 .bookPic img {
+  width: 200px;
+  height: 250px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#content1 .small_pic {
+  width: 250px;
+  height: 46px;
+  position: absolute;
+  top: 294px;
+  text-align: center;
+  overflow: hidden;
+}
+#content1 .small_pic a {
+  display: block;
+  float: left;
+  width: 45px;
+  height: 45px;
+  background: #eee;
+  margin: 0 5px;
+  border: 2px solid transparent;
+}
+#content1 .small_pic a.active {
+  border: 2px solid #d3c9a6;
+}
+#content1 .small_pic a img {
+  width: 33px;
+  height: 40px;
+  position: relative;
+  top: .5px;
+}
+#content1 .small_pic span {
+  float: left;
+  width: 15px;
+  height: 45px;
+  display: block;
+  color: #aaa;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+}
+#content1 .small_pic span:hover {
+  background: #eee;
+  color: #666;
+}
+#content1 .small_pic span::last-child {
+  float: right;
+}
+#content1 .bookInfo {
+  width: auto;
+  height: 300px;
+  float: left;
+  margin-left: 30px;
+}
+#content1 .bookInfo h5 {
+  font-weight: bold;
+  font-size: 18px;
+}
+#content1 p {
+  line-height: 300%;
+}
+#content1 p span {
+  color: #666;
+}
+#content1 p.price span {
+  color: #e4393c;
+  font-size: 22px;
+  vertical-align: baseline;
+}
+#content1 p.tip {
+  font-size: 10px;
+}
+#content1 .btns {
+  width: 100%;
+  height: 40px;
+  position: relative;
+}
+#content1 .btns input {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: #000;
+}
+#content1 .btns a {
+  text-decoration: none;
+  text-align: center;
+  line-height: 20px;
+  color: #666;
+  background: #eee;
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 40px;
+  border: 1px solid #bbb;
+}
+#content1 .btns a:nth-child(2) {
+  top: 20px;
+  border-top: 1px solid #666;
+}
+#content1 .btns a:last-child {
+  position: relative;
+  left: 80px;
+  top: -100%;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border: none;
+  background: #df3033;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 3px;
+}
